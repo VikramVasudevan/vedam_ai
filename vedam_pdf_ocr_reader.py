@@ -6,11 +6,17 @@ from config import VedamConfig
 from file_handler import write_to_file_and_create_dir
 import os
 
+
 class VedamPdfOCRReader:
-    def __init__(self):
-        self.pdf_path = VedamConfig.shuklaYajurVedamPdfPath
-        self.lang = "san+eng"
-        self.output_dir = "./output"
+    def __init__(self, scripture_name: str):
+        self.scripture_config = [
+            scripture
+            for scripture in VedamConfig.scriptures
+            if scripture["name"] == scripture_name
+        ][0]
+        self.pdf_path = self.scripture_config["pdf_path"]
+        self.lang = self.scripture_config["language"]
+        self.output_dir = self.scripture_config["output_dir"]
         os.makedirs(self.output_dir, exist_ok=True)
 
     def _ocr_single_page(self, args):
@@ -35,5 +41,6 @@ class VedamPdfOCRReader:
 
         return all_texts
 
+
 if __name__ == "__main__":
-    VedamPdfOCRReader().read(max_pages=1100)
+    VedamPdfOCRReader(scripture_name="vishnu_puranam").read(max_pages=1100)

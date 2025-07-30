@@ -1,0 +1,16 @@
+[project]
+name = "vedam-ai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "chromadb>=1.0.15",
+    "dotenv>=0.9.9",
+    "gradio>=5.38.2",
+    "pdf2image>=1.17.0",
+    "pillow>=11.3.0",
+    "pypdf>=5.9.0",
+    "pytesseract>=0.3.13",
+    "sentence-transformers>=5.0.0",
+]

@@ -67,7 +67,7 @@ def render():
     demo = gr.ChatInterface(
         fn=chat,
         type="messages",
-        title="Vedam Chatbot",
+        title="Shukla Yajur Vedam - Chatbot",
         # examples=[
         #     "where are the five elements mentioned",
         #     "नाभां पृथ्रिव्या:",

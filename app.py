@@ -30,12 +30,13 @@ def init():
 
 def generate_prompt(scripture_title, question, context):
     prompt = f"""You are a knowledgeable assistant on the {scripture_title}. You are an expert in English and Sanskrit.
-Answer strictly using the context provided below. If the answer is not directly stated in the pasurams, but can be inferred from the explanatory notes, you may use that — clearly mentioning it’s an interpretation.
+Answer strictly using the context provided below. If the answer is not directly stated in the verses, but can be inferred from the explanatory notes, you may use that — clearly mentioning it’s an interpretation.
 Use clear Markdown formatting with the following structure:
 - Use `###` headings for different sections
 - Use bullet points for lists
 - Put Sanskrit and English texts in **separate lines**
 - Keep all formatting readable in a chat interface
+- Give verbatim details from the context as much as possible
 
 Here is the question:
 **{question}**

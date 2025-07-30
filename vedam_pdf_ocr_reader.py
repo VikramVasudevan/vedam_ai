@@ -8,7 +8,7 @@ import os
 
 class VedamPdfOCRReader:
     def __init__(self):
-        self.pdf_path = VedamConfig.shuklaYajurVedamSmallPdfPath
+        self.pdf_path = VedamConfig.shuklaYajurVedamPdfPath
         self.lang = "san+eng"
         self.output_dir = "./output"
         os.makedirs(self.output_dir, exist_ok=True)
@@ -23,7 +23,7 @@ class VedamPdfOCRReader:
 
     def read(self, max_pages=5, dpi=300):
         print("🖼️ Converting PDF to images...")
-        images = convert_from_path(self.pdf_path, dpi=dpi)
+        images = convert_from_path(self.pdf_path, dpi=dpi, thread_count=8)
         images = images[:max_pages]
 
         # Prepare arguments for pool: (page_index, image)

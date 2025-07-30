@@ -20,7 +20,7 @@ def init():
     logger.info("****initialized")
 
 
-def echo(message, history):
+def chat(message, history):
     response = db.search(query=message, n_results=2)
     logger.info("response = \n\n %s", response)
     response_str = json.dumps(response, indent=1, ensure_ascii=False)
@@ -29,10 +29,9 @@ def echo(message, history):
 
 def render():
     demo = gr.ChatInterface(
-        fn=echo,
+        fn=chat,
         type="messages",
-        examples=["hello", "hola", "merhaba"],
-        title="Echo Bot",
+        title="Vedam Chatbot",
     )
     demo.launch()
 

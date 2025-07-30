@@ -68,12 +68,12 @@ def render():
         fn=chat,
         type="messages",
         title="Vedam Chatbot",
-        examples=[
-            "where are the five elements mentioned",
-            "नाभां पृथ्रिव्या:",
-            "can you give me some sanskrit slokams that talk about fire",
-            "which direction lies Brahma",
-        ],
+        # examples=[
+        #     "where are the five elements mentioned",
+        #     "नाभां पृथ्रिव्या:",
+        #     "can you give me some sanskrit slokams that talk about fire",
+        #     "which direction lies Brahma",
+        # ],
     )
     demo.launch()
 

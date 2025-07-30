@@ -37,6 +37,7 @@ Use clear Markdown formatting with the following structure:
 - Put Sanskrit and English texts in **separate lines**
 - Keep all formatting readable in a chat interface
 - Give verbatim details from the context as much as possible
+- Always give supporting verses in Sanskrit from the context
 
 Here is the question:
 **{question}**

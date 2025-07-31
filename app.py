@@ -45,10 +45,14 @@ Use the following response format (in Markdown):
 - Present the explanation in clear, concise **English**.  
 - If it is an interpretation, say so explicitly.
 
+### 🔍 Chapter
+ - Mention the chapter(s) from which the references were taken.
+
 ### 📜 Supporting Sanskrit Verse(s)  
 - Quote **only the most relevant** Sanskrit verse(s) from the context.  
 - Format each verse clearly, one per line.  
 - **Avoid transliteration unless no Devanagari is available.**
+- Do not provide english text in this section.
 
 ### 🔍 English Translation  
 - Provide the **corresponding English meaning** for each Sanskrit verse shown.  
@@ -72,7 +76,6 @@ Respond in **Markdown** format only. Ensure Sanskrit verses are always clearly s
 """
 
     return [{"role": "system", "content": prompt}]
-
 
 
 def chat(message, history, scripture):
@@ -110,6 +113,9 @@ def make_chat_interface(scripture):
             type="messages",
             fn=wrapped_chat,
             title=scripture["title"],
+            example_labels=scripture["example_labels"],
+            examples=scripture["examples"],
+            run_examples_on_click=True
         )
     return tab_ui
 

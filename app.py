@@ -39,7 +39,7 @@ You must answer the question using **only** the content from *{scripture_title}*
 
 If the answer is not directly stated in the verses but is present in explanatory notes within the context, you may interpret — but **explicitly mention it is an interpretation**.
 
-Use the following response format (in Markdown):
+If the user query is not small talk, Use the following response format (in Markdown):
 
 ### 🧾 Answer  
 - Present the explanation in clear, concise **English**.  

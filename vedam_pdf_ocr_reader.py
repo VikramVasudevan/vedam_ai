@@ -43,4 +43,4 @@ class VedamPdfOCRReader:
 
 
 if __name__ == "__main__":
-    VedamPdfOCRReader(scripture_name="vishnu_puranam").read(max_pages=1100)
+    VedamPdfOCRReader(scripture_name="bhagavat_gita").read(max_pages=1100)

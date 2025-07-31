@@ -14,7 +14,7 @@ class VedamConfig:
             "output_dir": "./output/vishnu_puranam",
             "collection_name": "vishnu_puranam",
             "pdf_path": "./data/vishnu_puranam.pdf",
-            "language" : "san+eng"
+            "language": "san+eng",
         },
         {
             "name": "shukla_yajur_vedam",
@@ -22,6 +22,14 @@ class VedamConfig:
             "output_dir": "./output/shukla_yajur_vedam",
             "collection_name": "shukla_yajur_vedam",
             "pdf_path": "./data/shukla-yajur-veda.pdf",
-            "language" : "san+eng"
+            "language": "san+eng",
+        },
+        {
+            "name": "bhagavat_gita",
+            "title": "Bhagavat Gita",
+            "output_dir": "./output/bhagavat_gita",
+            "collection_name": "bhagavat_gita",
+            "pdf_path": "./data/bhagavat_gita.pdf",
+            "language": "san+eng",
         },
     ]

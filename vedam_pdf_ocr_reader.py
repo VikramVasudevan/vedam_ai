@@ -1,4 +1,4 @@
-from pdf2image import convert_from_path
+from pdf2image import convert_from_path, pdfinfo_from_path
 import pytesseract
 from PIL import Image
 from multiprocessing import Pool, cpu_count
@@ -29,18 +29,39 @@ class VedamPdfOCRReader:
 
     def read(self, max_pages=5, dpi=300):
         print("🖼️ Converting PDF to images...")
-        images = convert_from_path(self.pdf_path, dpi=dpi, thread_count=8)
-        images = images[:max_pages]
+        info = pdfinfo_from_path(self.pdf_path, userpw=None, poppler_path=None)
+
+        maxPages = info["Pages"]
+        page_per_iteration = 100
+        for page in range(1, maxPages + 1, page_per_iteration):
+            images = convert_from_path(
+                self.pdf_path,
+                dpi=dpi,
+                first_page=page,
+                last_page=min(page + page_per_iteration - 1, maxPages),
+                thread_count=8,
+            )
+            print(f"Fetched ", len(images), " images")
+            args = list(enumerate(images, start=page))
+
+            print(f"⚡ Starting OCR with {cpu_count()} parallel workers")
+            try:
+                with Pool(processes=cpu_count()) as pool:
+                    result = pool.map_async(self._ocr_single_page, args)
+                    all_texts = result.get(timeout=999999)
+            except KeyboardInterrupt:
+                print("Interrupted")
+                pool.terminate()
+                pool.join()
+                raise
+
+        # images = convert_from_path(self.pdf_path, dpi=dpi, thread_count=4)
+        # images = images[:max_pages]
 
         # Prepare arguments for pool: (page_index, image)
-        args = list(enumerate(images))
 
-        print(f"⚡ Starting OCR with {cpu_count()} parallel workers")
-        with Pool(processes=cpu_count()) as pool:
-            all_texts = pool.map(self._ocr_single_page, args)
-
-        return all_texts
+        # return all_texts
 
 
 if __name__ == "__main__":
-    VedamPdfOCRReader(scripture_name="bhagavat_gita").read(max_pages=1100)
+    VedamPdfOCRReader(scripture_name="valmiki_ramayanam").read(max_pages=3000)

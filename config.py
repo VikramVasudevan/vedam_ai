@@ -32,4 +32,12 @@ class VedamConfig:
             "pdf_path": "./data/bhagavat_gita.pdf",
             "language": "san+eng",
         },
+        {
+            "name": "valmiki_ramayanam",
+            "title": "Valmiki Ramayanam",
+            "output_dir": "./output/valmiki_ramayanam",
+            "collection_name": "valmiki_ramayanam",
+            "pdf_path": "./data/valmiki_ramayanam.pdf",
+            "language": "san+eng",
+        }
     ]

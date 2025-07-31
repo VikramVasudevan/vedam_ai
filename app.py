@@ -17,6 +17,7 @@ load_dotenv(override=True)
 db = VedamDatabase()
 llm = OpenAI()
 
+
 def init():
     logger.info("Hello from vedam-ai!")
     for scripture in VedamConfig.scriptures:
@@ -68,19 +69,17 @@ Respond in **Markdown** format only. Ensure Sanskrit verses are always clearly s
 
 
 def chat(message, history, scripture):
-    response = db.search(query=message, n_results=2, collection_name=scripture["collection_name"])
-    logger.info("response = \n\n %s", response)
+    response = db.search(
+        query=message, n_results=5, collection_name=scripture["collection_name"]
+    )
+    # logger.info("response = \n\n %s", response)
     response_str = json.dumps(response, indent=1, ensure_ascii=False)
 
-    is_first_turn = not history or all(m["role"] != "user" for m in history)
-
     system_prompt = generate_prompt(
-        scripture_title=scripture["title"],
-        question=message,
-        context=response_str
+        scripture_title=scripture["title"], question=message, context=response_str
     )
 
-    all_messages = system_prompt + history + [{"role" : "user", "content" : message}]
+    all_messages = system_prompt + history + [{"role": "user", "content": message}]
 
     ai_response = llm.chat.completions.create(
         model="gpt-4o-mini",
@@ -89,8 +88,9 @@ def chat(message, history, scripture):
         temperature=0.3,
     )
 
-    return [{"role": "assistant", "content": ai_response.choices[0].message.content.strip()}]
-
+    return [
+        {"role": "assistant", "content": ai_response.choices[0].message.content.strip()}
+    ]
 
 
 def make_chat_interface(scripture):
@@ -99,15 +99,18 @@ def make_chat_interface(scripture):
 
     with gr.Blocks() as tab_ui:
         gr.ChatInterface(
+            chatbot=gr.Chatbot(show_copy_all_button=True, show_copy_button=True),
             type="messages",
             fn=wrapped_chat,
-            title=scripture["title"]
+            title=scripture["title"],
         )
     return tab_ui
 
 
 def render():
-    interfaces = [make_chat_interface(scripture) for scripture in VedamConfig.scriptures]
+    interfaces = [
+        make_chat_interface(scripture) for scripture in VedamConfig.scriptures
+    ]
     tab_titles = [scripture["title"] for scripture in VedamConfig.scriptures]
 
     demo = gr.TabbedInterface(interface_list=interfaces, tab_names=tab_titles)

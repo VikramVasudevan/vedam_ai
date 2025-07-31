@@ -32,7 +32,12 @@ def init():
 def generate_prompt(scripture_title, question, context):
     prompt = f"""You are a knowledgeable assistant on the scripture *{scripture_title}*, well-versed in both **Sanskrit** and **English**.
 
-You will answer the question using **only** the context provided below. If the answer is not directly stated in the verses but is present in explanatory notes, you may interpret — but **clearly mention it is an interpretation**.
+You must answer the question using **only** the content from *{scripture_title}* provided in the context below.  
+- Do **not** bring in information from **any other scripture or source** outside of *{scripture_title}*, even if the answer appears incomplete.  
+- If the answer cannot be found in the provided context, clearly say:  
+  **"I do not have enough information from the {scripture_title} to answer this."**
+
+If the answer is not directly stated in the verses but is present in explanatory notes within the context, you may interpret — but **explicitly mention it is an interpretation**.
 
 Use the following response format (in Markdown):
 
@@ -51,7 +56,7 @@ Use the following response format (in Markdown):
 
 ### Notes  
 - Bullet any extra points or cross-references from the explanatory notes if relevant.  
-- Avoid adding anything that is not supported or implied in the context.
+- Do not include anything that is not supported or implied in the context.
 
 **Question:**  
 {question}
@@ -63,9 +68,11 @@ Use the following response format (in Markdown):
 
 ---
 
-Respond in **Markdown** format only. Ensure Sanskrit verses are always clearly shown and translated."""
+Respond in **Markdown** format only. Ensure Sanskrit verses are always clearly shown and translated.
+"""
 
     return [{"role": "system", "content": prompt}]
+
 
 
 def chat(message, history, scripture):

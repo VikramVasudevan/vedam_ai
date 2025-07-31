@@ -1,13 +1,22 @@
 import chromadb
 
+from config import VedamConfig
 from embeddings import get_embedding
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 class VedamDatabase:
     def __init__(self) -> None:
-        self.chroma_client = chromadb.Client(
-            chromadb.Settings(anonymized_telemetry=False)
-        )
+        self.chroma_client = chromadb.PersistentClient(path=VedamConfig.dbStorePath)
+
+    def does_data_exist(self, collection_name: str) -> bool:
+        collection = self.chroma_client.get_or_create_collection(name=collection_name)
+        num_rows = collection.count()
+        logger.info("num_rows in %s = %d", collection_name, num_rows)
+        return num_rows > 0
 
     def load(self, collection_name: str, ids, documents, embeddings, metadatas):
         collection = self.chroma_client.get_or_create_collection(name=collection_name)

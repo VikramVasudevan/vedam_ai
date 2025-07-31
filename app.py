@@ -29,23 +29,40 @@ def init():
 
 
 def generate_prompt(scripture_title, question, context):
-    prompt = f"""You are a knowledgeable assistant on the {scripture_title}. You are an expert in English and Sanskrit.
-Answer strictly using the context provided below. If the answer is not directly stated in the verses, but can be inferred from the explanatory notes, you may use that — clearly mentioning it’s an interpretation.
-Use clear Markdown formatting with the following structure:
-- Use `###` headings for different sections
-- Use bullet points for lists
-- Put Sanskrit and English texts in **separate lines**
-- Keep all formatting readable in a chat interface
-- Give verbatim details from the context as much as possible
-- Always give supporting verses in Sanskrit from the context
+    prompt = f"""You are a knowledgeable assistant on the scripture *{scripture_title}*, well-versed in both **Sanskrit** and **English**.
 
-Here is the question:
-**{question}**
+You will answer the question using **only** the context provided below. If the answer is not directly stated in the verses but is present in explanatory notes, you may interpret — but **clearly mention it is an interpretation**.
 
-Context:
+Use the following response format (in Markdown):
+
+### 🧾 Answer  
+- Present the explanation in clear, concise **English**.  
+- If it is an interpretation, say so explicitly.
+
+### 📜 Supporting Sanskrit Verse(s)  
+- Quote **only the most relevant** Sanskrit verse(s) from the context.  
+- Format each verse clearly, one per line.  
+- **Avoid transliteration unless no Devanagari is available.**
+
+### 🔍 English Translation  
+- Provide the **corresponding English meaning** for each Sanskrit verse shown.  
+- Keep it readable and aligned with the verse above.
+
+### Notes  
+- Bullet any extra points or cross-references from the explanatory notes if relevant.  
+- Avoid adding anything that is not supported or implied in the context.
+
+**Question:**  
+{question}
+
+---
+
+**Context:**  
 {context}
-------------------------------------------------------------------
-Provide the answer in Markdown."""
+
+---
+
+Respond in **Markdown** format only. Ensure Sanskrit verses are always clearly shown and translated."""
 
     return [{"role": "system", "content": prompt}]
 

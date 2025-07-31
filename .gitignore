@@ -12,3 +12,4 @@ wheels/
 .env
 
 data/shukla-yajur-veda.pdf
+chromadb-store/

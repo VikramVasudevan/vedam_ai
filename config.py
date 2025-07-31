@@ -2,7 +2,7 @@ class VedamConfig:
     # shuklaYajurVedamPdfPath: str = "./data/shukla-yajur-veda.pdf"
     # shuklaYajurVedamSmallPdfPath: str = "./data/shukla-yajur-veda-small.pdf"
     # vishnuPuranamPdfPath = "./data/vishnu_puranam.pdf"
-    # dbStorePath: str = "./chromadb-store"
+    dbStorePath: str = "./chromadb-store"
     # shuklaYajurVedamCollectionName: str = "shukla_yajur_vedam"
     # vishnuPuranamCollectionName: str = "vishnu_puranam"
     # shuklaYajurVedamOutputDir = "./output/shukla_yajur_vedam"

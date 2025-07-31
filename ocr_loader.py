@@ -20,6 +20,9 @@ class OcrLoader:
         self.db = VedamDatabase()
 
     def load(self):
+        if(self.db.does_data_exist(collection_name=self.scripture_config["collection_name"])):
+            logger.info("🚀 Data already exists in ChromaDB... Not loading now")
+            return
         logger.info("🚀 Starting OCR file ingestion into ChromaDB...")
         batch = []
         total_loaded = 0

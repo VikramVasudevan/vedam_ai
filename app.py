@@ -115,7 +115,8 @@ def make_chat_interface(scripture):
             title=scripture["title"],
             example_labels=scripture["example_labels"],
             examples=scripture["examples"],
-            run_examples_on_click=True
+            run_examples_on_click=True,
+            cache_examples=False
         )
     return tab_ui
 

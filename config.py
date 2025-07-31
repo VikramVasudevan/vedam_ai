@@ -39,5 +39,13 @@ class VedamConfig:
             "collection_name": "valmiki_ramayanam",
             "pdf_path": "./data/valmiki_ramayanam.pdf",
             "language": "san+eng",
+        },
+        {
+            "name": "vishnu_sahasranamam",
+            "title": "Vishnu Sahasranamam",
+            "output_dir": "./output/vishnu_sahasranamam",
+            "collection_name": "vishnu_sahasranamam",
+            "pdf_path": "./data/vishnu_sahasranamam.pdf",
+            "language": "san+eng",
         }
     ]

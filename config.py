@@ -104,4 +104,21 @@ class VedamConfig:
                 "show the verse that begins with शुक्लाम्बरधरं",
             ],
         },
+        {
+            "name": "bhagavata_purana",
+            "title": "Bhagavatha Puranam",
+            "output_dir": "./output/bhagavata_purana",
+            "collection_name": "bhagavata_purana",
+            "pdf_path": "./data/bhagavata_purana.pdf",
+            "language": "san+eng",
+            "example_labels": [
+                "Gajendra Moksham",
+                "Prahalad"
+            ],
+            "examples": [
+                "State some verses that showcase the devotion of Gajendra the elephant",
+                "State some verses that showcase the devotion of Prahlada"
+            ]
+        },
+
     ]

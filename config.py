@@ -120,5 +120,16 @@ class VedamConfig:
                 "State some verses that showcase the devotion of Prahlada"
             ]
         },
-
+        {
+            "name": "chathusloki",
+            "title": "Chathusloki by Sri Alavandar",
+            "output_dir": "./output/chathusloki",
+            "collection_name": "chathusloki",
+            "pdf_path": "./data/chathusloki.pdf",
+            "language": "san+eng",
+            "example_labels": [
+            ],
+            "examples": [
+            ]
+        },
     ]

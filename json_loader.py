@@ -3,8 +3,8 @@ import chromadb
 from embeddings import get_embedding
 
 # ===== SETTINGS =====
-JSON_FILE = "./output/chathusloki/chathusloki_detailed.json"  # your JSON file path
-COLLECTION_NAME = "chathusloki"
+JSON_FILE = "./output/sri_stavam/sri_stavam_detailed.json"  # your JSON file path
+COLLECTION_NAME = "sri_stavam"
 
 # Load the JSON data
 with open(JSON_FILE, "r", encoding="utf-8") as f:
@@ -15,6 +15,10 @@ client = chromadb.PersistentClient(path="./chromadb-store")  # persistent
 # OR: client = chromadb.Client()  # in-memory only
 
 # Get or create the collection
+try:
+    client.delete_collection(name=COLLECTION_NAME)
+except:
+    pass
 collection = client.get_or_create_collection(name=COLLECTION_NAME)
 
 # Prepare and insert each sloka
@@ -23,25 +27,25 @@ documents = []
 embeddings = []
 metadatas = []
 
-for sloka in slokas:
-    sloka_num = sloka["verse"]
+for id, sloka in enumerate(slokas):
+    sloka_num = sloka.get("verse",0)
 
     # Combine fields into one searchable text blob
     text_blob = (
         f"Sloka {sloka_num}\n\n"
-        f"Devanagari:\n{sloka['sloka_devanagari']}\n\n"
-        f"Transliteration:\n{sloka['sloka_english_transliteration']}\n\n"
-        f"Meaning:\n{sloka['meaning']}\n\n"
-        f"Commentary:\n{sloka['commentary']}"
+        f"Translation:\n{sloka['translation']}\n\n"        
+        f"Commentary:\n{sloka['commentary']}\n\n"        
     )
 
-    ids.append(f"sloka-{sloka_num}")
+    ids.append(f"sloka-{id}")
     documents.append(text_blob)
     embeddings.append(get_embedding(text=text_blob))
     metadatas.append(
         {
             "sloka_number": sloka_num,
-            "meaning_short": sloka["meaning"][:200],  # snippet
+            "meaning_short": sloka["translation"], 
+            "sanskrit" : sloka['sanskrit'],
+            "transliteration" : sloka['transliteration']
         }
     )
 

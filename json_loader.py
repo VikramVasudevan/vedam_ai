@@ -1,5 +1,6 @@
 import json
 import chromadb
+from tqdm import tqdm
 from embeddings import get_embedding
 
 # ===== SETTINGS =====
@@ -26,15 +27,14 @@ ids = []
 documents = []
 embeddings = []
 metadatas = []
-
-for id, sloka in enumerate(slokas):
-    sloka_num = sloka.get("verse",0)
+for id, sloka in tqdm(enumerate(slokas)):
+    sloka_num = sloka.get("verse", 0)
 
     # Combine fields into one searchable text blob
     text_blob = (
         f"Sloka {sloka_num}\n\n"
-        f"Translation:\n{sloka['translation']}\n\n"        
-        f"Commentary:\n{sloka['commentary']}\n\n"        
+        f"Translation:\n{sloka['translation']}\n\n"
+        f"Commentary:\n{sloka['commentary']}\n\n"
     )
 
     ids.append(f"sloka-{id}")
@@ -42,10 +42,13 @@ for id, sloka in enumerate(slokas):
     embeddings.append(get_embedding(text=text_blob))
     metadatas.append(
         {
+            "_global_index": id + 1,
             "sloka_number": sloka_num,
-            "meaning_short": sloka["translation"], 
-            "sanskrit" : sloka['sanskrit'],
-            "transliteration" : sloka['transliteration']
+            "meaning_short": sloka["translation"],
+            "chapter": sloka["chapter"],
+            "sanskrit": sloka["sanskrit"],
+            "transliteration": sloka["transliteration"],
+            "commentary": sloka["commentary"],
         }
     )
 
